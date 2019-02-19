@@ -59,4 +59,7 @@ RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
     && docker-php-ext-enable apcu memcached raphf propro yaml imagick \
     && pecl install pecl_http-3.1.0 \
     && docker-php-ext-enable http \
-    && printf "upload_max_filesize = 128M\npost_max_size = 128M" > $PHP_INI_DIR/conf.d/00-max_filesize.ini
+    && printf "upload_max_filesize = 1000M\npost_max_size = 1000M\nmemory_limit = 1024M" > $PHP_INI_DIR/conf.d/00-max_filesize.ini
+    
+RUN apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+    rm -rf /var/lib/apt/lists/*
